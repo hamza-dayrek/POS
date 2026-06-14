@@ -23,23 +23,26 @@
                     </flux:sidebar.item>
                 </flux:sidebar.group>
                 <flux:sidebar.group :heading="__('Management')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('customers.index')" :current="request()->routeIs('customers.index')" wire:navigate>
+                    <flux:sidebar.item icon="users" :href="route('customers.index')" :current="request()->routeIs('customers.index')" wire:navigate>
                         {{ __('Manage Customers') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="home" :href="route('payment.methods.index')" :current="request()->routeIs('payment.methods.index')" wire:navigate>
+                    <flux:sidebar.item icon="banknotes" :href="route('payment.methods.index')" :current="request()->routeIs('payment.methods.index')" wire:navigate>
                         {{ __('Manage Payment Methods') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="user-group" :href="route('user.index')" :current="request()->routeIs('user.index')" wire:navigate>
+                        {{ __('Manage Users') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
                 <flux:sidebar.group :heading="__('Inventory Management')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('items.index')" :current="request()->routeIs('items.index')" wire:navigate>
+                    <flux:sidebar.item icon="cube" :href="route('items.index')" :current="request()->routeIs('items.index')" wire:navigate>
                         {{ __('Items') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="home" :href="route('enventories.index')" :current="request()->routeIs('enventories.index')" wire:navigate>
+                    <flux:sidebar.item icon="circle-stack" :href="route('enventories.index')" :current="request()->routeIs('enventories.index')" wire:navigate>
                         {{ __('Inventory') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
                 <flux:sidebar.group :heading="__('Sales Management')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('sales.index')" :current="request()->routeIs('sales.index')" wire:navigate>
+                    <flux:sidebar.item icon="chart-bar" :href="route('sales.index')" :current="request()->routeIs('sales.index')" wire:navigate>
                         {{ __('Sales') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>

@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/manage-sales', ListSales::class)->name('sales.index');
     Route::get('/manage-customers', ListCustomers::class)->name('customers.index');
     Route::get('/manage-payment-methods', ListPaymentMethods::class)->name('payment.methods.index');
+    Route::get('/manage-users', ListUsers::class)->name('user.index');
 });
 
 require __DIR__.'/settings.php';

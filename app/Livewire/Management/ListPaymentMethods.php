@@ -15,6 +15,9 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
+use Filament\Actions\Action;
+use Filament\Notifications\Notification;
+
 
 class ListPaymentMethods extends Component implements HasActions, HasSchemas, HasTable
 {
@@ -30,7 +33,8 @@ class ListPaymentMethods extends Component implements HasActions, HasSchemas, Ha
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('description')
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(50),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -47,7 +51,20 @@ class ListPaymentMethods extends Component implements HasActions, HasSchemas, Ha
                 //
             ])
             ->recordActions([
-                //
+                Action::make('edit')
+                    // ->url(fn (Item $record): string => route('', $record))
+                    ->openUrlInNewTab(),
+
+                Action::make('delete')
+                    ->requiresConfirmation()
+                    ->color('danger')
+                    ->action(fn (PaymentMethod $record) => $record->delete())
+                    ->successNotification(
+                        Notification::make()
+                            ->title('Inventory Deleted successfully')
+                            ->success()
+
+                    )
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

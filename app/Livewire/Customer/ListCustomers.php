@@ -3,9 +3,11 @@
 namespace App\Livewire\Customer;
 
 use App\Models\Customer;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
+use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Tables\Columns\TextColumn;
@@ -50,7 +52,20 @@ class ListCustomers extends Component implements HasActions, HasSchemas, HasTabl
                 //
             ])
             ->recordActions([
-                //
+                Action::make('edit')
+                    // ->url(fn (Item $record): string => route('', $record))
+                    ->openUrlInNewTab(),
+
+                Action::make('delete')
+                    ->requiresConfirmation()
+                    ->color('danger')
+                    ->action(fn (Customer $record) => $record->delete())
+                    ->successNotification(
+                        Notification::make()
+                            ->title('Inventory Deleted successfully')
+                            ->success()
+
+                    )
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

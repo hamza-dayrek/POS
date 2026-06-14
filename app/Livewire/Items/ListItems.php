@@ -15,7 +15,10 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
-use function Laravel\Prompts\search;
+use Filament\Actions\Action;
+use Filament\Notifications\Notification;
+
+
 
 class ListItems extends Component implements HasActions, HasSchemas, HasTable
 {
@@ -40,7 +43,20 @@ class ListItems extends Component implements HasActions, HasSchemas, HasTable
                 //
             ])
             ->recordActions([
-                //
+                Action::make('edit')
+                    // ->url(fn (Item $record): string => route('', $record))
+                    ->openUrlInNewTab(),
+
+                Action::make('delete')
+                    ->requiresConfirmation()
+                    ->color('danger')
+                    ->action(fn (Item $record) => $record->delete())
+                    ->successNotification(
+                        Notification::make()
+                            ->title('Inventory Deleted successfully')
+                            ->success()
+
+                    )
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

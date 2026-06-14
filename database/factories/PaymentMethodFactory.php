@@ -19,7 +19,7 @@ class PaymentMethodFactory extends Factory
     {
         return [
             'name'=>$this->faker->randomElement(['Cash', 'Card', 'Mobile Money']),
-            'discription'=>$this->faker->paragraph()
+            'description'=>$this->faker->paragraph()
         ];
     }
 }

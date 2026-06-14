@@ -15,6 +15,9 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
+use Filament\Actions\Action;
+use Filament\Notifications\Notification;
+
 
 class ListInventories extends Component implements HasActions, HasSchemas, HasTable
 {
@@ -27,12 +30,13 @@ class ListInventories extends Component implements HasActions, HasSchemas, HasTa
         return $table
             ->query(fn (): Builder => Inventory::query())
             ->columns([
-                TextColumn::make('item_id')
-                    ->numeric()
+                TextColumn::make('item.name')
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('quantity')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->badge(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -49,7 +53,18 @@ class ListInventories extends Component implements HasActions, HasSchemas, HasTa
                 //
             ])
             ->recordActions([
-                //
+
+                Action::make('delete')
+                    ->requiresConfirmation()
+                    ->color('danger')
+                    ->action(fn (Inventory $record) => $record->delete())
+                    ->successNotification(
+                        Notification::make()
+                            ->title('Deleted successfully')
+                            ->success()
+
+                    )
+
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
