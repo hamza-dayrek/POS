@@ -49,18 +49,20 @@ class ListUsers extends Component implements HasActions, HasSchemas, HasTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('role')
-                    ->searchable(),
+                    ->searchable()
+                    ->badge(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                //
+                Action::make('create')
+                    ->label('Create New User')
+                    ->url(fn (): string => route('user.create')),
             ])
             ->recordActions([
                 Action::make('edit')
-                    // ->url(fn (Item $record): string => route('', $record))
-                    ->openUrlInNewTab(),
+                    ->url(fn (User $record): string => route('user.update', $record)),
 
                 Action::make('delete')
                     ->requiresConfirmation()

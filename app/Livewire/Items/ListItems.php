@@ -40,13 +40,13 @@ class ListItems extends Component implements HasActions, HasSchemas, HasTable
                 //
             ])
             ->headerActions([
-                //
+                Action::make('create')
+                    ->label('Add New Item')
+                    ->url(fn (): string => route('item.create')),
             ])
             ->recordActions([
                 Action::make('edit')
-                    // ->url(fn (Item $record): string => route('', $record))
-                    ->openUrlInNewTab(),
-
+                    ->url(fn (Item $record): string => route('item.update', $record)),
                 Action::make('delete')
                     ->requiresConfirmation()
                     ->color('danger')

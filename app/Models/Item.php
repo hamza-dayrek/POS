@@ -10,7 +10,7 @@ class Item extends Model
     /** @use HasFactory<\Database\Factories\ItemFactory> */
     use HasFactory;
 
-    protected $fillabale= [
+    protected $fillable= [
         'name',
         'sku',
         'price',
